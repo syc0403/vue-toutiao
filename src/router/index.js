@@ -4,12 +4,16 @@ Vue.use(VueRouter)
 
 const routes = [
 
-
-// {
-//   path: '/',
-//   name:'主页',
-//   component: () => import("@/views/Home.vue"),
-// },
+  {
+    path: '/',
+    name:'主页',
+    component: () => import("@/pages/Home.vue"),
+  },
+{
+  path: '/home',
+  name:'主页',
+  component: () => import("@/pages/Home.vue"),
+},
 {
   path:'/my',
   name:'',
