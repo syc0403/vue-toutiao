@@ -8,29 +8,44 @@
       <i class="fabu"><i class="el-icon-circle-plus"></i></i>
     </el-header>
     <div class="navigation">
-      <van-tabs v-model="active">
+      <van-tabs active="active" @click="getCatId">
         <van-tab
           :title="cate.cat_name"
           v-for="cate in cates"
           :key="cate.cat_id"
+          :name="cate.cat_id"
         >
+          <div></div>
         </van-tab>
       </van-tabs>
+      <!-- <el-tabs v-model="activeName" @tab-click="handleClick">
+    <el-tab-pane :label="cate.cat_name"  v-for="cate in cates" :key="cate.cat_id"></el-tab-pane>
+  </el-tabs> -->
     </div>
-    <div class="list"></div>
+    <div class="article-list">
+      <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
+      <article-list :articles="articles"></article-list>
+      </van-pull-refresh>
+    </div>
   </el-container>
 </template>
 
 <script>
-import { getNoParam } from "@/utils/request.js";
+import { Toast } from 'vant';
+import { getNoParam, get } from "@/utils/request.js";
+import ArticleList from "../components/article-list.vue";
 export default {
   //import引入的组件需要注入到对象中才能使用
-  components: {},
+  components: { ArticleList },
   data() {
     //这里存放数据
     return {
       input: "",
       cates: [],
+      articles: [],
+      id: "",
+      isLoading: false
+      ,
     };
   },
   //监听属性 类似于data概念
@@ -38,13 +53,28 @@ export default {
   //监控data中的数据变化
   watch: {},
   //方法集合
-  methods: {},
+  methods: {
+    async getCatId(name) {
+      let params = { cat_id: name };
+      console.log(params);
+      let res = await get("https://qzimp.cn/api/articles/open", params);
+      console.log(res);
+      this.articles = res.data;
+      console.log(res.data);
+    },
+    onRefresh() {
+      setTimeout(() => {
+        Toast('刷新成功');
+        this.isLoading = false;
+      }, 1000);
+    },
+  },
   //生命周期 - 创建完成（可以访问当前this实例）
   async created() {
-    let res = await getNoParam(
+    let res1 = await getNoParam(
       "https://qzimp.cn/api/articlecate/getmobilearticlecates"
     );
-    this.cates = res.data;
+    this.cates = res1.data;
     // console.log(this.cates)
   },
   //生命周期 - 挂载完成（可以访问DOM元素）
@@ -68,5 +98,13 @@ export default {
   font-size: 30px;
   margin-right: 5px;
   margin-top: 15px;
+}
+.article-list {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 110px;
+  bottom: 50px;
+  overflow-y: auto;
 }
 </style>
