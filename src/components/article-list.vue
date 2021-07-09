@@ -1,32 +1,64 @@
 <template>
-  <div class="article-list">文章列表</div>
+  <!-- 根据传过来的图片显示文章，1，0 -->
+  <div class="articles">
+    <div class="article" v-for="article in articleData" :key="article.article_id">
+      <!-- <div class="article-img" v-if="article.thumb">
+        <el-image style="width: 100px; height: 100px" :src="article.thumb" fit="cover"></el-image>
+      </div> -->
+      <div class="article-content">
+        <div class="article-title">
+            {{article.title}}
+        </div>
+        <!-- <div class="author">
+          <br>{{article.author}}
+        </div> -->
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-import { getNoParam } from '@/utils/request.js'
 export default {
-  name: 'ArticleList',
-  components: {},
-  props: {
-    channel: {
-      type: Object,
-      required: true
+  props:{
+    articles:{
+      type:Array,
+      required:true
     }
   },
-  data () {
-    return {}
+  data() {
+    return {
+      articleData:this.articles
+     
+    };
   },
-  computed: {},
-  watch: {},
-  async created () {
-    let res = await getNoParam("https://qzimp.cn/api/articlecate/getmobilearticlecates")
-    this.cates = res.data[1]
-    console.log(this.cates)
-  },
-  mounted () {},
-  methods: {}
-}
-</script>
+  watch:{
+    'articles':function(val){
+      this.articleData=val;
+    }
+  }
+};
+</script> 
 
 <style>
+.article{
+    display: flex;
+    margin-bottom: 10px
+}
+.article-content{
+    margin-left:20px;
+    position: relative;
+}
+.article-title{
+    font: 20px;
+}
+.article-bars{
+    position:absolute;
+    bottom: 0;
+    left: 0;
+    font: 13px/23px Arial,sans-serif;
+    color: #9195a3;
+}
+.author{
+    font-size:10px;
+}
 </style>
