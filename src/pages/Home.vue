@@ -2,20 +2,22 @@
 <template>
   <el-container>
     <el-header class="head">
-      <el-input placeholder="请输入内容" v-model="input" class="search">
-        <i slot="prefix" class="el-input__icon el-icon-search"></i>
-      </el-input>
+      <van-search
+        class="search"
+        shape="round"
+        background="red"
+        placeholder="请输入搜索关键词"
+      />
       <i class="fabu"><i class="el-icon-circle-plus"></i></i>
     </el-header>
     <div class="navigation">
-      <van-tabs active="active" @click="getCatId">
+      <van-tabs @click="getCatId">
         <van-tab
           :title="cate.cat_name"
           v-for="cate in cates"
           :key="cate.cat_id"
           :name="cate.cat_id"
         >
-          <div></div>
         </van-tab>
       </van-tabs>
       <!-- <el-tabs v-model="activeName" @tab-click="handleClick">
@@ -24,19 +26,23 @@
     </div>
     <div class="article-list">
       <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
-      <article-list :articles="articles"></article-list>
+        <article-list :articles="articles"></article-list>
       </van-pull-refresh>
+    </div>
+    <div>
+      <h-tabber></h-tabber>
     </div>
   </el-container>
 </template>
 
 <script>
-import { Toast } from 'vant';
+import { Toast } from "vant";
 import { getNoParam, get } from "@/utils/request.js";
 import ArticleList from "../components/article-list.vue";
+import HTabber from "../components/h-tabber.vue";
 export default {
   //import引入的组件需要注入到对象中才能使用
-  components: { ArticleList },
+  components: { ArticleList, HTabber },
   data() {
     //这里存放数据
     return {
@@ -44,8 +50,7 @@ export default {
       cates: [],
       articles: [],
       id: "",
-      isLoading: false
-      ,
+      isLoading: false,
     };
   },
   //监听属性 类似于data概念
@@ -64,7 +69,7 @@ export default {
     },
     onRefresh() {
       setTimeout(() => {
-        Toast('刷新成功');
+        Toast("刷新成功");
         this.isLoading = false;
       }, 1000);
     },
@@ -76,6 +81,9 @@ export default {
     );
     this.cates = res1.data;
     // console.log(this.cates)
+    let params = { cat_id: 21 };
+    let res = await get("https://qzimp.cn/api/articles/open", params);
+    this.articles = res.data;
   },
   //生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {},
@@ -92,12 +100,12 @@ export default {
 }
 .search {
   margin: 10px;
+  margin-left: 15%;
 }
 .fabu {
   color: white;
   font-size: 30px;
-  margin-right: 5px;
-  margin-top: 15px;
+  margin-top: 5%;
 }
 .article-list {
   position: fixed;

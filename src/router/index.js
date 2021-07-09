@@ -23,6 +23,10 @@ const routes = [
   path:'/login',
   name:'登陆注册',
   component: () => import("@/pages/Login.vue")
+},{
+  path:'/user',
+  name:'登陆注册',
+  component: () => import("@/pages/User.vue")
 }
 ]
 

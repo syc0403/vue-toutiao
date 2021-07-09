@@ -5,7 +5,7 @@
     <div class="block">
       <el-avatar
         shape="circle"
-        :size="150"
+        :size="130"
         src="https://pica.zhimg.com/80/v2-69df6c0a165ba62c0d8ca6b3b3fcfcfa_720w.jpg"
       ></el-avatar>
     </div>

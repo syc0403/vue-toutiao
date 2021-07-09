@@ -5,14 +5,12 @@
       <!-- <div class="article-img" v-if="article.thumb">
         <el-image style="width: 100px; height: 100px" :src="article.thumb" fit="cover"></el-image>
       </div> -->
-      <div class="article-content">
-        <div class="article-title">
+        <div class="van-ellipsis">
             {{article.title}}
         </div>
         <!-- <div class="author">
           <br>{{article.author}}
         </div> -->
-      </div>
     </div>
   </div>
 </template>
@@ -42,13 +40,16 @@ export default {
 <style>
 .article{
     display: flex;
-    margin-bottom: 10px
+    margin-bottom: 30px;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 3%;
 }
 .article-content{
     margin-left:20px;
     position: relative;
 }
-.article-title{
+.van-ellipsis{
     font: 20px;
 }
 .article-bars{
@@ -61,4 +62,5 @@ export default {
 .author{
     font-size:10px;
 }
+
 </style>
