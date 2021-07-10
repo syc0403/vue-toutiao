@@ -18,9 +18,9 @@
         src="http://img.touxiangwu.com/2020/3/R7VzUr.jpeg"
       />
     </van-cell>
-    <van-cell title="昵称" />
-    <van-cell title="性别" />
-    <van-cell title="生日"/>
+    <van-cell title="昵称" value="abc" is-link/>
+    <van-cell title="性别" value="男" is-link/>
+    <van-cell title="生日" value="2001-4-3" is-link/>
     <van-cell title="个人简介"  label="请点击输入" />
     
     <!-- /个人信息 -->

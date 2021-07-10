@@ -8,7 +8,7 @@
         background="red"
         placeholder="请输入搜索关键词"
       />
-      <i class="fabu"><i class="el-icon-circle-plus"></i></i>
+      <i class="fabu"><van-icon name="coupon-o" /></i>
     </el-header>
     <div class="navigation">
       <van-tabs @click="getCatId">
